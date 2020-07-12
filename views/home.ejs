@@ -11,13 +11,22 @@
             <ul>
                <% for(let i of contact_list){%>
                <li>
-                   <p><%= i.name%></p>
+                   <tr>
+                       <th><%= i.name%></th>&nbsp
+                       <th><%= i.phone%></th>&nbsp
+                       <th><a href="/delete_contact/?id=<%=i.id%>">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                            </a>
+                        </th>
+                        <br>
+                   </tr>
+                  <!--<p><%= i.name%></p>
                    <p><%= i.phone%></p>
                    <div class="delete-button">
-                    <a href="/delete_contact/?phone=<%=i.phone%>">
-                        <i class="fas-fa-window-close">close</i>
+                    <a href="/delete_contact/?id=<%=i.id%>">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
                     </a>
-                </div>
+                </div>--> 
                </li>
             <%}%>
             </ul>

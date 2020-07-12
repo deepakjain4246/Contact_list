@@ -20,12 +20,12 @@ var contactList = [
           phone: "123456"
      }
 ]
-app.get('/', function (req, res) {
-     return res.render('home', {
-          title: "Contact list",
-          contact_list: contactList
-     });
-});
+// app.get('/', function (req, res) {
+//      return res.render('home', {
+//           title: "Contact list",
+//           contact_list: contactList
+//      });
+// });
 // app.post('/create_contact', function (req, res) {
 //      // console.log("hi")
 //      // return res.redirect('/practice.ejs');
@@ -42,15 +42,17 @@ app.post('/create_contact',function(req,res){
      Contact.create({
           name:req.body.name,
           phone:req.body.phone
-     }),function(err,newContact){
+     },function(err,newContact){
           if(err){
                console.log('Error in creating a contact');
                return;
           }
           console.log('*************',newContact);
           return res.redirect('back');
-     }
+     })
 });
+
+
 
 //fetching data from Db
 app.get('/',function(req,res){
@@ -67,18 +69,33 @@ app.get('/',function(req,res){
 });
 
 //deleting contact
+// app.get('/delete_contact',function(req,res){
+//    let phone=req.query.phone;
+//    let contactIndex=contactList.findIndex(contact=>
+//      contact.phone==phone                          
+//      );
+//      if(contactIndex != -1){
+//           contactList.splice(contactList,1);
+//      }
+//      return res.redirect('back');
+// });
+
+//deleting contact from DB
 app.get('/delete_contact',function(req,res){
-   let phone=req.query.phone;
-   let contactIndex=contactList.findIndex(contact=>
-     contact.phone==phone                          
-     );
-     if(contactIndex != -1){
-          contactList.splice(contactList,1);
-     }
-     return res.redirect('back');
+
+     //get the data from query in the url
+     let id=req.query.id;
+     
+     //find the contact in the database using id and delete
+     
+     Contact.findByIdAndDelete(id,function(err){
+          if(err){
+               console.log('error in deleting an object from DB');
+               return;
+          }
+          return res.redirect('back');
+     })
 });
-
-
 
 
 
